@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace DotnetFundamentals.Wpf
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -27,7 +24,15 @@ namespace DotnetFundamentals.Wpf
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(UsernameTextbox.Text);
+            string username = UsernameTextbox.Text;
+
+            if (string.IsNullOrEmpty(username) || string.IsNullOrWhiteSpace(username))
+            {
+                MessageBox.Show($"Username cannot be null or white space");
+                return;
+            }
+
+            MessageBox.Show($"Hello {username}");
         }
     }
 }
