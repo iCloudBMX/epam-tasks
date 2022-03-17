@@ -29,17 +29,11 @@ class FileSystemVisitor
     {
         var allEntries = Directory.EnumerateFileSystemEntries(filePath);
 
-        for(int i = 0; i < allEntries.Count(); i++)
+        foreach(var entry in allEntries)
         {
+            OnFileEntryFound(this, new NotificationEventArgs { FilePath = entry });
 
-            this.OnFileEntryFound(
-                sender: this, 
-                e: new NotificationEventArgs
-                {
-                    FilePath = allEntries.ElementAt(i)
-                }); 
-
-            yield return allEntries.ElementAt(i);
+            yield return entry;
         }
     }
 
@@ -51,13 +45,7 @@ class FileSystemVisitor
         {
             if(filter(entry))
             {
-
-                this.OnFileEntryFound(
-                    sender: this, 
-                    e: new NotificationEventArgs
-                    {
-                        FilePath = entry
-                    });   
+                this.OnFileEntryFound(this, new NotificationEventArgs { FilePath = entry });
 
                 yield return entry;
             }
