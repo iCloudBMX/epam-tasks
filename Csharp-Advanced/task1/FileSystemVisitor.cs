@@ -9,14 +9,12 @@ class FileSystemVisitor
 
     private Func<string, bool> filter;
 
-    private Notification notification;
+    public event EventHandler<NotificationEventArgs> OnFileEntryFound = delegate{};
+    public event EventHandler<NotificationEventArgs> OnFilteredFileEntryFound = delegate{};
 
     public FileSystemVisitor(string filePath)
     {
         this.filePath = filePath;
-        this.notification = new Notification();
-        this.notification.OnFileEntryFound += OnFileEntryFound;
-        this.notification.OnFilteredFileEntryFound += OnFilteredFileEntryFound;
     }
 
     public FileSystemVisitor(string filePath, Func<string, bool> filter)
@@ -27,20 +25,6 @@ class FileSystemVisitor
 
     }
 
-    private void OnFileEntryFound(
-        object sender, 
-        NotificationEventArgs notificationEventArgument)
-    {
-        Console.WriteLine($"{notificationEventArgument.FilePath} file entry found");
-    }
-
-    private void OnFilteredFileEntryFound(
-        object sender, 
-        NotificationEventArgs notificationEventArgument)
-    {
-        Console.WriteLine($"{notificationEventArgument.FilePath} filtered file entry found");
-    }
-
     public IEnumerable<string> GetAllEntries()
     {
         var allEntries = Directory.EnumerateFileSystemEntries(filePath);
@@ -48,12 +32,12 @@ class FileSystemVisitor
         for(int i = 0; i < allEntries.Count(); i++)
         {
 
-            OnFileEntryFound(
+            this.OnFileEntryFound(
                 sender: this, 
-                notificationEventArgument: new NotificationEventArgs
+                e: new NotificationEventArgs
                 {
                     FilePath = allEntries.ElementAt(i)
-                });
+                }); 
 
             yield return allEntries.ElementAt(i);
         }
@@ -67,13 +51,13 @@ class FileSystemVisitor
         {
             if(filter(entry))
             {
-                
-                OnFilteredFileEntryFound(
-                sender: this, 
-                notificationEventArgument: new NotificationEventArgs
-                {
-                    FilePath = entry
-                });
+
+                this.OnFileEntryFound(
+                    sender: this, 
+                    e: new NotificationEventArgs
+                    {
+                        FilePath = entry
+                    });   
 
                 yield return entry;
             }

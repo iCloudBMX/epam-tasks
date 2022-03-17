@@ -6,13 +6,26 @@ namespace task1
     {
         static void Main(string[] args)
         {
-            var fileSystemVisitor = new FileSystemVisitor("C:\\Users\\User\\Desktop\\test", 
+            var fileSystemVisitor = new FileSystemVisitor("C:\\temp", 
                 entry => entry.EndsWith(".txt"));
             
-            foreach(var entry in fileSystemVisitor.FilterEntries()) 
+            fileSystemVisitor.OnFileEntryFound += OnFileFound;
+            fileSystemVisitor.OnFilteredFileEntryFound += OnFilteredFileFound;
+
+            foreach(var file in fileSystemVisitor.FilterEntries())
             {
-                Console.WriteLine(entry);
+                Console.WriteLine(file);
             }
+        }
+
+        private static void OnFilteredFileFound(object sender, NotificationEventArgs notificationEventArgs)
+        {
+            Console.WriteLine("Filtered file found: {0}", notificationEventArgs.FilePath);
+        }
+
+        private static void OnFileFound(object sender, NotificationEventArgs notificationEventArgs)
+        {
+            Console.WriteLine("File found: {0}", notificationEventArgs.FilePath);
         }
     }
 }
