@@ -4,7 +4,7 @@ using SerializerService.Models;
 
 namespace SerializerService.Serivces
 {
-    public class XMLSerializer : ISerializer
+    public class XMLSerializer : ISerializer<Department>
     {
         private string path;
 

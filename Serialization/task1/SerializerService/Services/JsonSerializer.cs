@@ -4,7 +4,7 @@ using SerializerService.Models;
 
 namespace SerializerService.Serivces
 {
-    public class JsonSerializer : ISerializer
+    public class JsonSerializer : ISerializer<Department>
     {
         private string path;
 

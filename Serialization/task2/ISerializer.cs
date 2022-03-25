@@ -1,4 +1,4 @@
-namespace SerializerService.Interfaces
+namespace task2
 {
     public interface ISerializer<T>
     {

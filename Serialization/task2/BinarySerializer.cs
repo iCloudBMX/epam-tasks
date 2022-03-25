@@ -1,11 +1,9 @@
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using SerializerService.Interfaces;
-using SerializerService.Models;
 
-namespace SerializerService.Serivces
+namespace task2
 {
-    public class BinarySerializer : ISerializer<Department>
+    public class BinarySerializer : ISerializer<Person>
     {
         private string path;
 
@@ -13,8 +11,8 @@ namespace SerializerService.Serivces
         {
             this.path = path;
         }
-
-        public void Serialize(Department department)
+        
+        public void Serialize(Person person)
         {
             using(FileStream stream = new FileStream(
                 path: this.path, 
@@ -23,11 +21,11 @@ namespace SerializerService.Serivces
             {
                 IFormatter binaryFormatter = new BinaryFormatter();
 
-                binaryFormatter.Serialize(stream, department);
+                binaryFormatter.Serialize(stream, person);
             }
         }
 
-        public Department Deserialize()
+        public Person Deserialize()
         {
             using(FileStream stream = new FileStream(
                 path: this.path,
@@ -36,7 +34,7 @@ namespace SerializerService.Serivces
             {
                 IFormatter binaryFormatter = new BinaryFormatter();
 
-                return (Department) binaryFormatter.Deserialize(stream);
+                return (Person) binaryFormatter.Deserialize(stream);
             }
         }
     }
