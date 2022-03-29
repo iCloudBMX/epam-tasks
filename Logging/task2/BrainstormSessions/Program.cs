@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
 using System;
+using Serilog.Sinks.Email;
 
 namespace BrainstormSessions
 {
@@ -11,10 +12,12 @@ namespace BrainstormSessions
         public static int Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
-               .MinimumLevel.Override("Microsoft", LogEventLevel.Debug)
-                    .Enrich.FromLogContext()
-                        .WriteTo.Console()
-                            .CreateLogger();
+                .WriteTo.Email(
+                    fromEmail: "app@example.com",
+                    toEmail: "support@example.com",
+                    mailSubject: "Logs",
+                    restrictedToMinimumLevel: LogEventLevel.Error)
+                .CreateLogger();
 
             try
             {
