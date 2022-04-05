@@ -1,4 +1,6 @@
-﻿using task3;
+﻿using System;
+using System.Collections.Generic;
+using task3;
 
 Department department = new Department
 {
