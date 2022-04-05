@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace SerializerService.Models.Seeds
 {
     public class SeedDepartment

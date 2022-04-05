@@ -1,3 +1,4 @@
+using System.IO;
 using System.Xml.Serialization;
 using SerializerService.Interfaces;
 using SerializerService.Models;

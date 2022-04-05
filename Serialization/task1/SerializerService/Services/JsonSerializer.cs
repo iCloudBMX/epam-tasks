@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using SerializerService.Interfaces;
 using SerializerService.Models;
+using System.IO;
 
 namespace SerializerService.Serivces
 {
