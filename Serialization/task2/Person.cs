@@ -30,6 +30,10 @@ namespace task2
             this.Name = (string) serializationInfo.GetValue(
                 name: "Name", 
                 type: typeof(string));
+
+            this.Age = (int)serializationInfo.GetValue(
+                name: "Age",
+                type: typeof(int));
         }
 
         /// <summary>
@@ -43,6 +47,7 @@ namespace task2
             StreamingContext streamingContext)
         {
             serializationInfo.AddValue("Name", this.Name);
+            serializationInfo.AddValue("Age", this.Age);
         }
 
         public override string ToString()
