@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace SerializerService.Models.Seeds
+namespace XMLSerialization.Models.Seeds
 {
     public class SeedDepartment
     {

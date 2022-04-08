@@ -1,9 +1,9 @@
 using System.IO;
 using System.Xml.Serialization;
 using SerializerService.Interfaces;
-using SerializerService.Models;
+using XMLSerialization.Models;
 
-namespace SerializerService.Serivces
+namespace XMLSerialization.Serivces
 {
     public class XMLSerializer : ISerializer<Department>
     {

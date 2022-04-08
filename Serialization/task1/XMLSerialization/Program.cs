@@ -1,6 +1,6 @@
-﻿using SerializerService.Serivces;
-using SerializerService.Models.Seeds;
-using SerializerService.Models;
+﻿using XMLSerialization.Serivces;
+using XMLSerialization.Models.Seeds;
+using XMLSerialization.Models;
 using System;
 
 Department department = SeedDepartment.GetDepartment();

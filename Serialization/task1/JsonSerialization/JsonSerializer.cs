@@ -1,9 +1,9 @@
 using Newtonsoft.Json;
 using SerializerService.Interfaces;
-using SerializerService.Models;
+using JsonSerialization.Models;
 using System.IO;
 
-namespace SerializerService.Serivces
+namespace JsonSerialization.Serivces
 {
     public class JsonSerializer : ISerializer<Department>
     {

@@ -1,6 +1,6 @@
-﻿using SerializerService.Serivces;
-using SerializerService.Models.Seeds;
-using SerializerService.Models;
+﻿using JsonSerialization.Serivces;
+using JsonSerialization.Models.Seeds;
+using JsonSerialization.Models;
 using System;
 
 Department department = SeedDepartment.GetDepartment();

@@ -2,9 +2,9 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using SerializerService.Interfaces;
-using SerializerService.Models;
+using BinarySerialization.Models;
 
-namespace SerializerService.Serivces
+namespace BinarySerialization.Serivces
 {
     public class BinarySerializer : ISerializer<Department>
     {
