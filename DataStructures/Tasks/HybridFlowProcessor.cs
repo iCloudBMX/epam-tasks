@@ -7,14 +7,17 @@ namespace Tasks
     {
         private DoublyLinkedList<T> linkedList;
 
-        public HybridFlowProcessor(DoublyLinkedList<T> linkedList)
+        public HybridFlowProcessor()
         {
-            this.linkedList = linkedList;
+            this.linkedList = new DoublyLinkedList<T>();
         }
 
         public T Dequeue()
         {
-            return linkedList.RemoveFirst();
+            if (linkedList.Length == 0)
+                throw new InvalidOperationException();
+
+            return linkedList.RemoveAt(0);
         }
 
         public void Enqueue(T item)
@@ -24,7 +27,10 @@ namespace Tasks
 
         public T Pop()
         {
-            return linkedList.RemoveLast();
+            if (linkedList.Length == 0)
+                throw new InvalidOperationException();
+
+            return linkedList.RemoveAt(0);             
         }
 
         public void Push(T item)
