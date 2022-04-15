@@ -134,14 +134,29 @@ namespace Task1
             decimal expensive
         )
         {
-            throw new NotImplementedException();
+            throw new NotFiniteNumberException();
         }
 
         public static IEnumerable<(string city, int averageIncome, int averageIntensity)> Linq9(
             IEnumerable<Customer> customers
         )
         {
-            throw new NotImplementedException();
+            if (customers is null)
+                throw new ArgumentNullException();
+
+            var groupedCustomersByCity = customers.GroupBy(customer
+                    => customer.City);
+
+            return groupedCustomersByCity.Select(group => (
+                city: group.Key,
+                
+                avarageIncome: (int)Math.Round(group.Average(cutomer => 
+                    cutomer.Orders.Sum(order => 
+                        order.Total))),
+                
+                averageIntensity: (int)Math.Round(group.Average(cutomer => 
+                    cutomer.Orders.Count()))
+            ));
         }
 
         public static string Linq10(IEnumerable<Supplier> suppliers)
