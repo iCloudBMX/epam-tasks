@@ -18,6 +18,7 @@ namespace Task3
                 return -1;
 
             var user = _userDao.GetUser(userId);
+
             if (user == null)
                 return -2;
 

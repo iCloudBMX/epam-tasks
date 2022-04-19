@@ -14,9 +14,9 @@ namespace Task1
                 {
                     Console.WriteLine(value[0]);
                 }
-                catch(Exception exception)
+                catch(IndexOutOfRangeException exception)
                 {
-                    Console.WriteLine(exception.Message);
+                    Console.WriteLine($"Input cannot be null or empty. By the way it may cause: {exception.Message}");
                 }
             }
         }
