@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Katas.Tests
@@ -48,6 +49,20 @@ namespace Katas.Tests
 
             // Assert
             Assert.Equal(expectedResult, actualResult);
+        }
+
+        [Fact]
+        public void ShouldThrowArgumentNullExceptionOnReplaceSuffixWithKeysWhenInputsAreNull()
+        {
+            // Arrange
+            string inputString = null;
+            Dictionary<string, string> inputDictionary = null;
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(() => 
+                DictionaryReplacer.ReplaceSuffixWithKeys(
+                    inputString: inputString,
+                    dictionary: inputDictionary));
         }
     }
 }
