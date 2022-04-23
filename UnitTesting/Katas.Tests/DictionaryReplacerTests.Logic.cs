@@ -18,7 +18,7 @@ namespace Katas.Tests
             string expectedResult = "temporary";
 
             // Act
-            var actualResult = 
+            var actualResult =
                 DictionaryReplacer.ReplaceSuffixWithKeys(
                     inputString: inputString,
                     dictionary: inputDictionary);
