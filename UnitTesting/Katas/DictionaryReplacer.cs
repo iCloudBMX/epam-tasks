@@ -10,6 +10,9 @@ namespace Katas
             string inputString, 
             Dictionary<string, string> dictionary)
         {
+            if (inputString == null || dictionary == null)
+                throw new ArgumentNullException();
+
             StringBuilder result = new StringBuilder();
             
             for(int index = 0; index < inputString.Length; index++)
