@@ -10,11 +10,6 @@ namespace Katas.Tests
 {
     public class CalcStatsTests
     {
-        private int MINIMUM_VALUE_INDEX = 0;
-        private int MAXIMUM_VALUE_INDEX = 1;
-        private int NUMBER_OF_ELEMENTS_INDEX = 2;
-        private int AVAREGAE_VALUE_OF_ELEMENTS_INDEX = 3;
-
         [Fact]
         public void ShouldCalculateStatistics()
         {
@@ -24,7 +19,7 @@ namespace Katas.Tests
             
             int expectedMinValue = -2;
             int expectedMaxValue = 92;
-            double expectedAverageValue = 18.166666;
+            double expectedAverageValue = 21.833333333333332;
             int expectedNumberOfElements = 6;
 
             // Act
@@ -33,16 +28,16 @@ namespace Katas.Tests
 
             // Assert
             Assert.Equal(expectedMinValue,
-                actualResults[MINIMUM_VALUE_INDEX]);
+                actualResults[CalcStats.MINIMUM_VALUE_INDEX]);
             
             Assert.Equal(expectedMaxValue,
-                actualResults[MAXIMUM_VALUE_INDEX]);
+                actualResults[CalcStats.MAXIMUM_VALUE_INDEX]);
             
             Assert.Equal(expectedNumberOfElements,
-                actualResults[NUMBER_OF_ELEMENTS_INDEX]);
+                actualResults[CalcStats.NUMBER_OF_ELEMENTS_INDEX]);
 
             Assert.Equal(expectedAverageValue,
-                actualResults[AVAREGAE_VALUE_OF_ELEMENTS_INDEX]);
+                actualResults[CalcStats.AVAREGAE_VALUE_OF_ELEMENTS_INDEX]);
         }
     }
 }
