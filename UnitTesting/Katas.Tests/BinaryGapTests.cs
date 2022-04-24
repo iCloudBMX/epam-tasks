@@ -35,5 +35,14 @@ namespace Katas.Tests
             // Assert
             Assert.Equal(expedtedResult, actualResult);
         }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-1)]
+        public void ShouldThrowArgumentOutOfRangeExceptionOnFindMaxBinaryGapWhenInputNumberIsNegativeOrZero(int number)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                BinaryGap.FindMaxBinaryGap(number));
+        }
     }
 }
