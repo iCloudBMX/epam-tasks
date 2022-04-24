@@ -10,6 +10,9 @@ namespace Katas
     {
         public static int FindMaxBinaryGap(int number)
         {
+            if (number < 1)
+                throw new ArgumentOutOfRangeException();
+
             int currentLength = 0, maxLength = 0;
             bool isOne = false;
             
