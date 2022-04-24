@@ -39,5 +39,10 @@ namespace Katas.Tests
             Assert.Equal(expectedAverageValue,
                 actualResults[CalcStats.AVAREGAE_VALUE_OF_ELEMENTS_INDEX]);
         }
+
+        [Fact]
+        public void ShouldThrowArgumentNullExceptionOnCalculateStatisticsWhenArrayIsNull() =>
+            Assert.Throws<ArgumentNullException>(() => 
+                CalcStats.CalculateStatistics(null));
     }
 }
