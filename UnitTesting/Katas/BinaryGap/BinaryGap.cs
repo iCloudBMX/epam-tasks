@@ -11,16 +11,25 @@ namespace Katas
         public static int FindMaxBinaryGap(int number)
         {
             int currentLength = 0, maxLength = 0;
-
+            bool isOne = false;
+            
             while(number > 0)
             {
                 if (number % 2 == 1)
                 {
-                    maxLength = Math.Max(maxLength, currentLength);
-                    currentLength = 0;
+                    if(isOne)
+                    {
+                        maxLength = Math.Max(maxLength, currentLength);
+                        currentLength = 0;
+                    }
+                    isOne = true;
                 }
                 else
-                    currentLength++;
+                {
+                    if(isOne)
+                        currentLength++;
+                }
+                    
 
                 number /= 2;
             }
