@@ -28,8 +28,7 @@ namespace Katas
                 {
                     if(isOne)
                         currentLength++;
-                }
-                    
+                }                    
 
                 number /= 2;
             }
