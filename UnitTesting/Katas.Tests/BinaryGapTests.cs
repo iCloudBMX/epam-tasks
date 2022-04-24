@@ -22,5 +22,18 @@ namespace Katas.Tests
             // Assert
             Assert.Equal(expectedResult, actualResult);
         }
+
+        [Theory]
+        [InlineData(20, 1)]
+        [InlineData(16, 0)]
+        public void ShouldFindMaxBinaryGapWhenThereIsNoOneAtTheEnd(int number, int expedtedResult)
+        {
+            // Act
+            int actualResult =
+                BinaryGap.FindMaxBinaryGap(number);
+
+            // Assert
+            Assert.Equal(expedtedResult, actualResult);
+        }
     }
 }
