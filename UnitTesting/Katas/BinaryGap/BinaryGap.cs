@@ -10,7 +10,22 @@ namespace Katas
     {
         public static int FindMaxBinaryGap(int number)
         {
-            throw new NotImplementedException();
+            int currentLength = 0, maxLength = 0;
+
+            while(number > 0)
+            {
+                if (number % 2 == 1)
+                {
+                    maxLength = Math.Max(maxLength, currentLength);
+                    currentLength = 0;
+                }
+                else
+                    currentLength++;
+
+                number /= 2;
+            }
+
+            return maxLength;
         }
     }
 }
