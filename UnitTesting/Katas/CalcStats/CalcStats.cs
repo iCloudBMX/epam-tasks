@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Katas
+{
+    public class CalcStats
+    {
+        public static int[] CalculateStatistics(int[] arr)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}
