@@ -60,6 +60,7 @@
     <Folder Include="Scripts" />
     <Folder Include="Publish Locations" />
     <Folder Include="Views" />
+    <Folder Include="Stored Procedures" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Person.sql" />
@@ -67,6 +68,7 @@
     <Build Include="Tables\Employee.sql" />
     <Build Include="Tables\Company.sql" />
     <Build Include="Views\EmployeeInfo.sql" />
+    <Build Include="Stored Procedures\Employee_Insert.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.SeedData.sql" />
