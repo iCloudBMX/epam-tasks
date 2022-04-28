@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -6,19 +7,49 @@ namespace Listener
 {
     internal class Program
     {
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
-            string[] urls = { "/Information", "/Success", "/Redirection", "/ClientError", "/ServerError" };
-
-            using var httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri("http://localhost:8888/");
-
-            foreach (var url in urls)
-            {                  
-                Console.WriteLine($"Requesting {url}");
-                var response = await httpClient.GetAsync(url);
-                Console.WriteLine($"Response status code: {response.StatusCode}");
-            }
+            StatusCodeListener(new[] { "http://localhost:8888/" });
         }
+
+        static void StatusCodeListener(string[] prefixes)
+        {
+            if (prefixes is null || prefixes.Length == 0)
+                throw new ArgumentException("prefixes");
+
+            using HttpListener httpListener = new HttpListener();
+
+            foreach (string prefix in prefixes)
+            {
+                httpListener.Prefixes.Add(prefix);
+            }
+            httpListener.Start();
+
+            Console.WriteLine("Server is listening its clients");
+
+            while (true)
+            {
+                HttpListenerContext context = httpListener.GetContext();
+                Console.WriteLine("Client connected");
+
+                using (var response = context.Response)
+                {
+                    string absolutePath = context.Request.Url.AbsolutePath;
+
+                    if (absolutePath == "/Information")
+                        response.StatusCode = (int)HttpStatusCode.Continue;
+                    else if (absolutePath == "/Success")
+                        response.StatusCode = (int)HttpStatusCode.OK;
+                    else if (absolutePath == "/Redirection")
+                        response.StatusCode = (int)HttpStatusCode.Redirect;
+                    else if (absolutePath == "/ClientError")
+                        response.StatusCode = (int)HttpStatusCode.NotFound;
+                    else if (absolutePath == "/ServerError")
+                        response.StatusCode = (int)HttpStatusCode.InternalServerError;
+
+                    response.Close();
+                }
+            }
+        }        
     }
 }
