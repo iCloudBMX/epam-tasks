@@ -14,9 +14,9 @@ namespace Client
             using var httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri("http://localhost:8888/");
 
-            var response = await httpClient.GetAsync("MyNameByHeader");
+            var response = await httpClient.GetAsync("MyNameByCookies");
 
-            var myName = response.Headers.GetValues("X-MyName")?.First();
+            var myName = (response.Headers.GetValues("Set-Cookie")?.First()).Split('=')[1];
 
             Console.WriteLine($"My name is {myName}");
 

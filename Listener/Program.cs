@@ -36,17 +36,18 @@ namespace Listener
                 {
                     string absolutePath = context.Request.Url.AbsolutePath;
 
-                    if (absolutePath == "/MyNameByHeader")
+                    if (absolutePath == "/MyNameByCookies")
                     {
-                        GetMyNameByHeader(response);
+                        MyNameByCookies(response);
                     }
                 }
             }
         }
         
-        static void GetMyNameByHeader(HttpListenerResponse httpListenerResponse)
+        static void MyNameByCookies(HttpListenerResponse httpListenerResponse)
         {
-            httpListenerResponse.AddHeader("X-MyName", GetMyName());
+            var myNameCookie = new Cookie("MyName", GetMyName());
+            httpListenerResponse.Cookies.Add(myNameCookie);
             httpListenerResponse.Close();
         }
 
