@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Net;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Client
 {
@@ -7,14 +9,14 @@ namespace Client
     {
         static void Main(string[] args)
         {
-            NameParserListener(new[] { "http://localhost:8888/" });
+            StatusCodeListener(new[] { "http://localhost:8888/" });
         }
 
-        static void NameParserListener(string[] prefixes)
+        static void StatusCodeListener(string[] prefixes)
         {
             if(prefixes is null || prefixes.Length == 0)
                 throw new ArgumentException("prefixes");
-
+            
             using HttpListener httpListener = new HttpListener();
 
             foreach (string prefix in prefixes)
@@ -28,30 +30,26 @@ namespace Client
             while (true)
             {
                 HttpListenerContext context = httpListener.GetContext();
-                HttpListenerRequest request = context.Request;
-                HttpListenerResponse response = context.Response;
-
                 Console.WriteLine("Client connected");
 
-                if (context.Request.Url.AbsolutePath == "/MyName")
+                using(var response = context.Response)
                 {
-                    string responseString = GetName();
+                    string absolutePath = context.Request.Url.AbsolutePath;
 
-                    byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
+                    if (absolutePath == "/Information")
+                        response.StatusCode = (int)HttpStatusCode.Continue;
+                    else if (absolutePath == "/Success")
+                        response.StatusCode = (int)HttpStatusCode.OK;
+                    else if (absolutePath == "/Redirection")
+                        response.StatusCode = (int)HttpStatusCode.Redirect;
+                    else if (absolutePath == "/ClientError")
+                        response.StatusCode = (int)HttpStatusCode.NotFound;
+                    else if (absolutePath == "/ServerError")
+                        response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-                    response.ContentLength64 = buffer.Length;
-                    System.IO.Stream output = response.OutputStream;
-                    output.Write(buffer, 0, buffer.Length);
-                    output.Close();
-                }
-                else
-                {
-                    response.StatusCode = (int)HttpStatusCode.NotFound;
                     response.Close();
                 }
             }
         }
-
-        static string GetName() => "Xondamir";
     }
 }
