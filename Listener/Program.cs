@@ -36,20 +36,20 @@ namespace Listener
                 {
                     string absolutePath = context.Request.Url.AbsolutePath;
 
-                    if (absolutePath == "/Information")
-                        response.StatusCode = (int)HttpStatusCode.Continue;
-                    else if (absolutePath == "/Success")
-                        response.StatusCode = (int)HttpStatusCode.OK;
-                    else if (absolutePath == "/Redirection")
-                        response.StatusCode = (int)HttpStatusCode.Redirect;
-                    else if (absolutePath == "/ClientError")
-                        response.StatusCode = (int)HttpStatusCode.NotFound;
-                    else if (absolutePath == "/ServerError")
-                        response.StatusCode = (int)HttpStatusCode.InternalServerError;
-
-                    response.Close();
+                    if (absolutePath == "/MyNameByHeader")
+                    {
+                        GetMyNameByHeader(response);
+                    }
                 }
             }
-        }        
+        }
+        
+        static void GetMyNameByHeader(HttpListenerResponse httpListenerResponse)
+        {
+            httpListenerResponse.AddHeader("X-MyName", GetMyName());
+            httpListenerResponse.Close();
+        }
+
+        static string GetMyName() => "Xondamir";
     }
 }
