@@ -59,7 +59,6 @@ namespace MvcPrinciples.Controllers
             return View(productViewModel);
         }
 
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

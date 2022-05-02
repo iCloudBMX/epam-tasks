@@ -12,14 +12,16 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">ProductName</th>
-      <th scope="col">CategoryName</th>
-      <th scope="col">SupplierName</th>
+      <th scope="col">Category</th>
+      <th scope="col">Supplier</th>
       <th scope="col">QuantityPerUnit</th>
       <th scope="col">UnitPrice</th>
       <th scope="col">UnitsInStock</th>
       <th scope="col">UnitsOnOrder</th>
       <th scope="col">ReorderLevel</th>
       <th scope="col">Discontinued</th>      
+      <th></th>      
+      <th></th>      
     </tr>
   </thead>
   <tbody>
@@ -28,14 +30,43 @@
             <tr>
                 <th scope="row">@product.Id</th>
                 <td>@product.Name</td>
-                <td>@product.Category.Name</td>
-                <td>@product.Supplier.ContactName</td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Category
+                        </button>
+                        <div class="dropdown-menu"> 
+                            <ul class="list-group">
+                                <li class="list-group-item">@product.Category.Name</li>
+                                <li class="list-group-item">@product.Category.Description</li>
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Supplier
+                        </button>
+                        <div class="dropdown-menu"> 
+                            <ul class="list-group">
+                            <li class="list-group-item">@product.Supplier.ContactName</li>
+                            <li class="list-group-item">@product.Supplier.CompanyName</li>
+                            <li class="list-group-item">@product.Supplier.Country</li>
+                            <li class="list-group-item">@product.Supplier.Address</li>
+                        </ul>
+                        </div>
+                    </div>
+                </td>
                 <td>@product.QuantityPerUnit</td>
                 <td>@product.Price</td>
                 <td>@product.UnitsInStock</td>
                 <td>@product.UnitsOnOrder</td>
                 <td>@product.ReorderLevel</td>
                 <td>@product.Discontinued</td>
+                <td>
+                    <a class="btn btn-primary" href="@Url.Action("Update", "Product", new { id = product.Id })">Edit</a>
+                </td>
             </tr>
         }
   </tbody>

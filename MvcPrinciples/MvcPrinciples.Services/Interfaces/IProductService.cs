@@ -11,5 +11,7 @@ namespace MvcPrinciples.Services.Interfaces
     {
         IQueryable<Product> RetrieveAllProducts();
         ValueTask<Product> RetrieveProductByIdAsync(int productId);
+        ValueTask<Product> ModifyProductAsync(Product product, int productId);
+        ValueTask<Product> RemoveProductAsync(int productId);
     }
 }

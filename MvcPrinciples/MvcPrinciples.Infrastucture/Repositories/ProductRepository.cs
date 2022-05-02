@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using MvcPrinciples.Infrastucture.Contexts;
 using MvcPrinciples.Infrastucture.Interfaces;
 using MvcPrinciples.Model.Models;
@@ -30,19 +31,35 @@ namespace MvcPrinciples.Infrastucture.Repositories
         {
             return await this.applicationDbContext.Products.FindAsync(productId);
         }
-        public ValueTask<Product> InsertProductAsync(Product product)
+        
+        public async ValueTask<Product> InsertProductAsync(Product product)
         {
-            throw new NotImplementedException();
+            EntityEntry<Product> entityEntry =
+                await this.applicationDbContext.AddAsync(product);
+
+            await this.applicationDbContext.SaveChangesAsync();
+
+            return entityEntry.Entity;
         }
 
-        public ValueTask<Product> UpdateProductAsync(Product product)
+        public async ValueTask<Product> UpdateProductAsync(Product product)
         {
-            throw new NotImplementedException();
+            EntityEntry<Product> entityEntry =
+                this.applicationDbContext.Update(product);
+
+            await this.applicationDbContext.SaveChangesAsync();
+
+            return entityEntry.Entity;
         }
 
-        public ValueTask<Product> DeleteProductAsync(Product product)
+        public async ValueTask<Product> DeleteProductAsync(Product product)
         {
-            throw new NotImplementedException();
+            EntityEntry<Product> entityEntry =
+                this.applicationDbContext.Remove(product);
+
+            await this.applicationDbContext.SaveChangesAsync();
+
+            return entityEntry.Entity;
         }
     }
 }

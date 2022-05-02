@@ -16,7 +16,7 @@ namespace MvcPrinciples.Services.Services
         public ProductService(IProductRepository productRepository)
         {
             this.productRepository = productRepository;
-        }
+        }        
 
         public IQueryable<Product> RetrieveAllProducts()
         {
@@ -26,6 +26,33 @@ namespace MvcPrinciples.Services.Services
         public async ValueTask<Product> RetrieveProductByIdAsync(int productId)
         {
             return await this.productRepository.SelectProductByIdAsync(productId);
+        }
+
+        public async ValueTask<Product> ModifyProductAsync(Product product, int productId)
+        {
+            var selectedProduct = await this.productRepository.SelectProductByIdAsync(productId);
+
+            if (selectedProduct == null)
+            {
+                throw new ArgumentException("Product not found");
+            }
+
+            selectedProduct.Name = product.Name;
+            selectedProduct.Price = product.Price;
+
+            return await this.productRepository.UpdateProductAsync(selectedProduct);
+        }
+
+        public async ValueTask<Product> RemoveProductAsync(int productId)
+        {
+            var selectedProduct = await this.productRepository.SelectProductByIdAsync(productId);
+
+            if (selectedProduct == null)
+            {
+                throw new ArgumentException("Product not found");
+            }            
+            
+            return await this.productRepository.DeleteProductAsync(selectedProduct);
         }
     }
 }
