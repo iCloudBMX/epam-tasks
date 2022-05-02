@@ -1,0 +1,15 @@
+﻿@model CategoryViewModel;
+
+@{
+    ViewData["Title"] = "Categories";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>All categories</p>
+
+<ul class="list-group">
+    @foreach (var category in Model.Categories)
+    {
+        <li class="list-group-item">@category.Name</li>
+    }
+</ul>

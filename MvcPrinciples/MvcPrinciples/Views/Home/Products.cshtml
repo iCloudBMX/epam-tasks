@@ -1,0 +1,42 @@
+﻿@model ProductViewModel
+
+@{
+    ViewData["Title"] = "Products";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>All products</p>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">ProductName</th>
+      <th scope="col">CategoryName</th>
+      <th scope="col">SupplierName</th>
+      <th scope="col">QuantityPerUnit</th>
+      <th scope="col">UnitPrice</th>
+      <th scope="col">UnitsInStock</th>
+      <th scope="col">UnitsOnOrder</th>
+      <th scope="col">ReorderLevel</th>
+      <th scope="col">Discontinued</th>      
+    </tr>
+  </thead>
+  <tbody>
+        @foreach (var product in Model.Products)
+        {
+            <tr>
+                <th scope="row">@product.Id</th>
+                <td>@product.Name</td>
+                <td>@product.Category.Name</td>
+                <td>@product.Supplier.ContactName</td>
+                <td>@product.QuantityPerUnit</td>
+                <td>@product.Price</td>
+                <td>@product.UnitsInStock</td>
+                <td>@product.UnitsOnOrder</td>
+                <td>@product.ReorderLevel</td>
+                <td>@product.Discontinued</td>
+            </tr>
+        }
+  </tbody>
+</table>

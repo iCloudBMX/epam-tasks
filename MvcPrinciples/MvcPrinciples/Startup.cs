@@ -1,9 +1,15 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MvcPrinciples.Infrastucture.Contexts;
+using MvcPrinciples.Infrastucture.Interfaces;
+using MvcPrinciples.Infrastucture.Repositories;
+using MvcPrinciples.Services.Interfaces;
+using MvcPrinciples.Services.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +29,12 @@ namespace MvcPrinciples
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            AddExternalServices(services);
+            AddRepositories(services);
+
             services.AddControllersWithViews();
         }
 
@@ -52,6 +64,20 @@ namespace MvcPrinciples
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        private static void AddExternalServices(IServiceCollection services)
+        {
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<ISupplierService, SupplierService>();
+        }
+
+        private static void AddRepositories(IServiceCollection services)
+        {
+            services.AddTransient<IProductRepository, ProductRepository>();            
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<ISupplierRepository, SupplierRepository>();
         }
     }
 }
