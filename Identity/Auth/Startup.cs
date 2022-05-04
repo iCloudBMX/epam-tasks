@@ -1,4 +1,4 @@
-using Auth.Data;
+using Auth.Areas.Identity.Data;
 using Auth.Models;
 using Auth.Services;
 using Microsoft.AspNetCore.Builder;
@@ -29,23 +29,26 @@ namespace Auth
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("AuthIdentityDbContextConnection")));
-            services.AddDatabaseDeveloperPageExceptionFilter();
-
-            services.AddIdentityCore<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-
-
             var emailConfig = Configuration
                 .GetSection("EmailConfiguration")
-                .Get<EmailConfiguration>();
-            
+                .Get<EmailConfiguration>();           
+
             services.AddSingleton(emailConfig);
             services.AddScoped<IEmailSender, EmailSender>();
 
             services.AddControllersWithViews();
+            services.AddRazorPages();
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("EmailID", policy =>
+                policy.RequireClaim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name", "support@procodeguide.com"
+                ));
+
+                options.AddPolicy("rolecreation", policy =>
+                policy.RequireRole("Admin")
+                );
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

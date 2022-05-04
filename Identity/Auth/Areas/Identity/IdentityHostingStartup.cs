@@ -1,5 +1,6 @@
 using System;
 using Auth.Areas.Identity.Data;
+using Auth.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -19,8 +20,14 @@ namespace Auth.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("AuthIdentityDbContextConnection")));
 
-                services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<AuthIdentityDbContext>();
+                services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddDefaultUI()
+                .AddEntityFrameworkStores<AuthIdentityDbContext>()
+                .AddDefaultTokenProviders();
+
+
+                services.AddScoped<IUserClaimsPrincipalFactory<User>,
+                        ApplicationUserClaimsPrincipalFactory>();
             });
         }
     }
